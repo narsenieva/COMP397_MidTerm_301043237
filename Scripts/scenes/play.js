@@ -18,6 +18,7 @@ var scenes;
         // Constructor
         function PlayScene(assetManager) {
             var _this = _super.call(this, assetManager) || this;
+            _this.count = 0;
             _this.Start();
             return _this;
         }
@@ -31,6 +32,10 @@ var scenes;
             this.Main();
         };
         PlayScene.prototype.Update = function () {
+            console.log("Count: " + this.count);
+            if (this.count >= 10) {
+                objects.Game.currentScene = config.Scene.OVER;
+            }
         };
         PlayScene.prototype.Main = function () {
             this.addChild(this.background);
@@ -56,6 +61,7 @@ var scenes;
             this.startTime = new Date().getMilliseconds();
         };
         PlayScene.prototype.playerClick = function () {
+            this.count++;
             this.removeChild(this.player);
             this.AddButton();
         };

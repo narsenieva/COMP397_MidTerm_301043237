@@ -11,6 +11,7 @@ module scenes {
         private endTime : any;
         private finalTime : any;
 
+        private count: number = 0;
         // Constructor
         constructor(assetManager:createjs.LoadQueue) {
             super(assetManager);
@@ -29,6 +30,10 @@ module scenes {
         }
 
         public Update():void {
+            console.log("Count: " + this.count);
+            if(this.count >= 10) {
+                objects.Game.currentScene = config.Scene.OVER;
+            }
         }
 
         public Main():void {
@@ -41,6 +46,8 @@ module scenes {
             this.nextButton.on("click", this.nextButtonClick);
             this.backButton.on("click", this.backButtonClick);
             //this.player.on("click", this.playerClick);
+
+            
         }
 
         private nextButtonClick():void {
@@ -52,6 +59,7 @@ module scenes {
         }
 
         public AddButton() {
+            
             this.player = new objects.Button(this.assetManager, "player", this.Random(0, 500), this.Random(50, 450));
             this.addChild(this.player);
             this.player.on("click", this.playerClick.bind(this));
@@ -59,6 +67,7 @@ module scenes {
         }
 
         public playerClick() : void {
+            this.count++;
             this.removeChild(this.player);
             this.AddButton();
         }
