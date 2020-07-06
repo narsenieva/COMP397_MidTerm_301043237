@@ -4,11 +4,21 @@
     let stage:createjs.Stage;
     let helloLabel: objects.Label;
     let button: objects.Button;
+    let assetManager:createjs.LoadQueue;
+    let assetManifest: any[];
+
+    assetManifest = [
+        {id:"startButton", src:"./Assets/startButton.png"}
+    ];
 
     function Init() {
         console.log("Initializing Start");
-        let x: number = 10;
-        let y: string = "Nataiia";
+
+        assetManager = new createjs.LoadQueue();
+        assetManager.installPlugin(createjs.Sound);
+        assetManager.loadManifest(assetManifest);
+        assetManager.on("complete", Start, this);
+
         Start();
     }
 
@@ -36,7 +46,7 @@
         helloLabel = new objects.Label("Hello World", "40px", "Consolas", "#000000", 320, 240, true);
 
         // Instantiate Button
-        button = new objects.Button("./Assets/startButton.png", 320, 340);
+        button = new objects.Button(assetManager, "startButton", 320, 340);
         button.regY = 24.5;
         button.regX = 95;
         button.on("click", clickMeButtonClicked);
