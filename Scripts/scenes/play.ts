@@ -12,6 +12,8 @@ module scenes {
         private finalTime : any;
 
         private count: number = 0;
+
+        private : any;
         // Constructor
         constructor(assetManager:createjs.LoadQueue) {
             super(assetManager);
@@ -26,11 +28,12 @@ module scenes {
             this.playLabel = new objects.Label( "GO!", "20px", "Consolas", "#000000", 300, 60, true);
             this.nextButton = new objects.Button(this.assetManager, "nextButton", 500, 500);
             this.backButton = new objects.Button(this.assetManager, "backButton", 0, 500);
+            
             this.Main();
         }
 
         public Update():void {
-            console.log("Count: " + this.count);
+            console.log("Final: " + this.finalTime);
             if(this.count >= 10) {
                 objects.Game.currentScene = config.Scene.OVER;
             }
@@ -44,10 +47,7 @@ module scenes {
             this.AddButton();
             // Register for click events
             this.nextButton.on("click", this.nextButtonClick);
-            this.backButton.on("click", this.backButtonClick);
-            //this.player.on("click", this.playerClick);
-
-            
+            this.backButton.on("click", this.backButtonClick);           
         }
 
         private nextButtonClick():void {
@@ -59,21 +59,23 @@ module scenes {
         }
 
         public AddButton() {
-            
             this.player = new objects.Button(this.assetManager, "player", this.Random(0, 500), this.Random(50, 450));
             this.addChild(this.player);
+            this.startTime = new Date().getTime();
             this.player.on("click", this.playerClick.bind(this));
-            this.startTime = new Date().getMilliseconds();
         }
 
         public playerClick() : void {
             this.count++;
             this.removeChild(this.player);
+            this.endTime = new Date().getTime();
+            console.log("Start: " + this.startTime + " " + "End: " + this.endTime)
+            this.finalTime = this.endTime - this.startTime;
             this.AddButton();
         }
 
         private Random(min, max) {
             return Math.random() * (max - min) + min;
-          }
+        }
     }
 } 
