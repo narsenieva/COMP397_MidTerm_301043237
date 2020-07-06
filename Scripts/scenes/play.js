@@ -19,6 +19,7 @@ var scenes;
         function PlayScene(assetManager) {
             var _this = _super.call(this, assetManager) || this;
             _this.count = 0;
+            _this.counter = 0;
             _this.Start();
             return _this;
         }
@@ -32,12 +33,13 @@ var scenes;
             this.Main();
         };
         PlayScene.prototype.Update = function () {
-            console.log("Final: " + this.finalTime);
+            //console.log("Final: " + this.finalTime);
             if (this.count >= 10) {
                 objects.Game.currentScene = config.Scene.OVER;
             }
         };
         PlayScene.prototype.Main = function () {
+            this.Timer();
             this.addChild(this.background);
             this.addChild(this.playLabel);
             this.addChild(this.nextButton);
@@ -63,12 +65,24 @@ var scenes;
             this.count++;
             this.removeChild(this.player);
             this.endTime = new Date().getTime();
-            console.log("Start: " + this.startTime + " " + "End: " + this.endTime);
+            //console.log("Start: " + this.startTime + " " + "End: " + this.endTime)
             this.finalTime = this.endTime - this.startTime;
             this.AddButton();
         };
         PlayScene.prototype.Random = function (min, max) {
             return Math.random() * (max - min) + min;
+        };
+        PlayScene.prototype.Timer = function () {
+            var _this = this;
+            var intervalId = setInterval(function () {
+                _this.counter = _this.counter + 1;
+                if (_this.counter < 10) {
+                    _this.playLabel.text = "0:0" + _this.counter.toString();
+                }
+                else if (_this.counter >= 10 && _this.counter <= 59) {
+                    _this.playLabel.text = "0:" + _this.counter.toString();
+                }
+            }, 1000);
         };
         return PlayScene;
     }(objects.Scene));

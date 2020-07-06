@@ -13,7 +13,7 @@ module scenes {
 
         private count: number = 0;
 
-        private : any;
+        private counter : number = 0;
         // Constructor
         constructor(assetManager:createjs.LoadQueue) {
             super(assetManager);
@@ -33,13 +33,14 @@ module scenes {
         }
 
         public Update():void {
-            console.log("Final: " + this.finalTime);
+            //console.log("Final: " + this.finalTime);
             if(this.count >= 10) {
                 objects.Game.currentScene = config.Scene.OVER;
             }
         }
 
         public Main():void {
+            this.Timer();
             this.addChild(this.background);
             this.addChild(this.playLabel);
             this.addChild(this.nextButton);
@@ -69,13 +70,24 @@ module scenes {
             this.count++;
             this.removeChild(this.player);
             this.endTime = new Date().getTime();
-            console.log("Start: " + this.startTime + " " + "End: " + this.endTime)
+            //console.log("Start: " + this.startTime + " " + "End: " + this.endTime)
             this.finalTime = this.endTime - this.startTime;
             this.AddButton();
         }
 
-        private Random(min, max) {
+        private Random(min, max) : number {
             return Math.random() * (max - min) + min;
+        }
+
+        private Timer() : void {
+            let intervalId = setInterval(() => {
+               this.counter = this.counter + 1;
+               if(this.counter < 10) {
+                    this.playLabel.text = "0:0" + this.counter.toString();
+                } else if (this.counter >= 10 && this.counter <= 59) {
+                    this.playLabel.text = "0:" + this.counter.toString();  
+                }
+            }, 1000)
         }
     }
 } 
