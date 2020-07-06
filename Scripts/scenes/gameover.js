@@ -25,8 +25,8 @@ var scenes;
         GameOverScene.prototype.Start = function () {
             // Initialize our variables
             this.background = new objects.Background(this.assetManager);
-            this.gameOverLabel = new objects.Label("Game Over!", "40px", "Consolas", "#000000", 320, 240, true);
-            this.backButton = new objects.Button(this.assetManager, "backButton", 320, 340);
+            this.gameOverLabel = new objects.Label("Game Over!", "40px", "Consolas", "#000000", 300, 100, true);
+            this.backButton = new objects.Button(this.assetManager, "backButton", 250, 300);
             this.Main();
         };
         GameOverScene.prototype.Update = function () { };

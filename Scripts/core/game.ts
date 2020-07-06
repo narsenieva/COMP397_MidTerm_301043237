@@ -13,7 +13,8 @@
         {id:"startButton", src:"./Assets/startButton.png"},
         {id:"nextButton", src:"./Assets/nextButton.png"},
         {id:"backButton", src:"./Assets/backButton.png"},
-        {id:"background", src:"./Assets/background.png"}
+        {id:"background", src:"./Assets/background.png"},
+        {id:"player", src:"./Assets/player.png"}
     ];
 
     function Init() {
