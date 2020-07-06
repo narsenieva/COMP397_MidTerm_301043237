@@ -3,10 +3,12 @@
     var stage;
     var helloLabel;
     var button;
+    var background;
     var assetManager;
     var assetManifest;
     assetManifest = [
-        { id: "startButton", src: "./Assets/startButton.png" }
+        { id: "startButton", src: "./Assets/startButton.png" },
+        { id: "background", src: "./Assets/background.png" }
     ];
     function Init() {
         console.log("Initializing Start");
@@ -31,12 +33,14 @@
     function Main() {
         console.log("Game Start");
         // Instantiate Label
-        helloLabel = new objects.Label("Hello World", "40px", "Consolas", "#000000", 320, 240, true);
+        helloLabel = new objects.Label("Hello World", "40px", "Consolas", "#000000", 250, 200, true);
+        background = new objects.Background(assetManager);
         // Instantiate Button
-        button = new objects.Button(assetManager, "startButton", 320, 340);
+        button = new objects.Button(assetManager, "startButton", 250, 340);
         button.regY = 24.5;
         button.regX = 95;
         button.on("click", clickMeButtonClicked);
+        stage.addChild(background);
         stage.addChild(helloLabel);
         stage.addChild(button);
     }
