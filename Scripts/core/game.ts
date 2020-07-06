@@ -2,7 +2,8 @@
 (function () {
     let canvas = document.getElementById("canvas");
     let stage:createjs.Stage;
-    let helloLabel: createjs.Text;
+    let helloLabel: objects.Label;
+    let button: objects.Button;
 
     function Init() {
         console.log("Initializing Start");
@@ -25,18 +26,30 @@
     }
     function Update() {
         stage.update();
-        helloLabel.scaleX += 0.001;
-        helloLabel.scaleY += 0.001;
     }
 
 
     function Main() {
         console.log("Game Start");
-        helloLabel = new createjs.Text("Hello World!", "40px Consolas", "#000000");
-        helloLabel.x = 100;
-        helloLabel.y = 100;
+        
+        // Instantiate Label
+        helloLabel = new objects.Label("Hello World", "40px", "Consolas", "#000000", 320, 240, true);
+
+        // Instantiate Button
+        button = new objects.Button("./Assets/startButton.png", 320, 340);
+        button.regY = 24.5;
+        button.regX = 95;
+        button.on("click", clickMeButtonClicked);
 
         stage.addChild(helloLabel);
+        stage.addChild(button);
     }
+
+    function clickMeButtonClicked():void {
+        helloLabel.text = "Clicked";
+        console.log("I am clicked!");
+    }
+
+
     window.onload = Init;
 })();
