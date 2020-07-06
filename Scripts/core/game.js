@@ -1,7 +1,6 @@
 (function () {
     var canvas = document.getElementById("canvas");
     var stage;
-<<<<<<< HEAD
     var assetManager;
     var assetManifest;
     var currentScene;
@@ -10,15 +9,6 @@
         { id: "startButton", src: "./Assets/startButton.png" },
         { id: "nextButton", src: "./Assets/nextButton.png" },
         { id: "backButton", src: "./Assets/backButton.png" },
-=======
-    var helloLabel;
-    var button;
-    var background;
-    var assetManager;
-    var assetManifest;
-    assetManifest = [
-        { id: "startButton", src: "./Assets/startButton.png" },
->>>>>>> master
         { id: "background", src: "./Assets/background.png" }
     ];
     function Init() {
@@ -51,7 +41,6 @@
     }
     function Main() {
         console.log("Game Start");
-<<<<<<< HEAD
         // Finite State Machine
         switch (objects.Game.currentScene) {
             case config.Scene.START:
@@ -71,23 +60,6 @@
                 break;
         }
         currentState = objects.Game.currentScene;
-=======
-        // Instantiate Label
-        helloLabel = new objects.Label("Hello World", "40px", "Consolas", "#000000", 250, 200, true);
-        background = new objects.Background(assetManager);
-        // Instantiate Button
-        button = new objects.Button(assetManager, "startButton", 250, 340);
-        button.regY = 24.5;
-        button.regX = 95;
-        button.on("click", clickMeButtonClicked);
-        stage.addChild(background);
-        stage.addChild(helloLabel);
-        stage.addChild(button);
-    }
-    function clickMeButtonClicked() {
-        helloLabel.text = "Clicked";
-        console.log("I am clicked!");
->>>>>>> master
     }
     window.onload = Init;
 })();
