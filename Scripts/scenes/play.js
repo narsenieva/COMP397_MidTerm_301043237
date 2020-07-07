@@ -88,7 +88,7 @@ var scenes;
                     _this.scoreBoard.Time = Math.floor(_this.timer / 60) + ":" + _this.timer % 60;
                 }
                 _this.scoreBoard.timeLabel.text = _this.scoreBoard.Time;
-                if (_this.timer >= 70) {
+                if (_this.timer >= 60) {
                     clearInterval(_this.interval);
                     _this.scoreBoard.Time = "60";
                     _this.timer = 0;

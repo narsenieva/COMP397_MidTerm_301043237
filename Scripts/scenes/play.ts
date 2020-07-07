@@ -101,7 +101,7 @@ module scenes {
                 this.scoreBoard.Time = Math.floor(this.timer / 60) + ":" + this.timer % 60; 
                } 
                this.scoreBoard.timeLabel.text = this.scoreBoard.Time;
-               if (this.timer >= 70) {
+               if (this.timer >= 60) {
                 clearInterval(this.interval);
                 this.scoreBoard.Time = "60";
                 this.timer = 0;

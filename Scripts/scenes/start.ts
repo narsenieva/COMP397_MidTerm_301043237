@@ -5,6 +5,8 @@ module scenes {
         private welcomeLabel: objects.Label;
         private startButton: objects.Button;
 
+        private creditsLabel : objects.Label;
+
         // Constructor
         constructor(assetManager:createjs.LoadQueue) {
             super(assetManager);
@@ -18,6 +20,8 @@ module scenes {
 
             // NOTE: PreloadJS manifest id
             this.startButton = new objects.Button(this.assetManager, "nextButton", 250, 300);
+            this.creditsLabel = new objects.Label("By Nataliia Arsenieva - 301043237 - COMP397_S2020 - Midterm",
+            "15px", "Consolas", "#FFFFFF", 300, 550, true);
             this.Main();
         }
 
@@ -28,6 +32,7 @@ module scenes {
             this.addChild(this.background);
             this.addChild(this.welcomeLabel);
             this.addChild(this.startButton);
+            this.addChild(this.creditsLabel);
             this.startButton.on("click", this.startButtonClick);
         }
 
