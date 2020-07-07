@@ -1,20 +1,24 @@
 module scenes {
     export class PlayScene extends objects.Scene {
         // Variables
-        public playLabel: objects.Label;
+        public timeLabel: objects.Label;
+        public countLabel: objects.Label;
+
         private nextButton: objects.Button;
         private backButton: objects.Button;
-        private background: objects.Background;
+
         private player: objects.Button;
 
-        private scoreBoard : objects.Score;
+        private background: objects.Background;
+
+
+        private scoreBoard : objects.ScoreTable;
         private sum : number = 0;
 
         private startTime : any;
         private endTime : any;
-
-        public count: number = 0;
         private timer : number = 0;
+
         // Constructor
         constructor(assetManager:createjs.LoadQueue) {
             super(assetManager);
@@ -24,13 +28,13 @@ module scenes {
 
         public Start():void {
             // Inintialize our variables
+            this.scoreBoard = new objects.ScoreTable();
+            objects.Game.scoretable = this.scoreBoard;
+
             this.background = new objects.Background(this.assetManager);
-            this.playLabel = new objects.Label("GO!", "20px", "Consolas", "#000000", 300, 60, true);
             this.nextButton = new objects.Button(this.assetManager, "nextButton", 500, 500);
             this.backButton = new objects.Button(this.assetManager, "backButton", 0, 500);
-            
-            this.scoreBoard = new objects.Score;
-            objects.Game.score = this.scoreBoard;
+
             this.Main();
         }
 
@@ -38,10 +42,12 @@ module scenes {
            
            // console.log("LEVEL SCORE IS: " + this.scoreBoard.Count);
            //console.log("Sum: " + this.sum);
-            if(this.scoreBoard.Count >= 10) {
+            if(objects.Game.scoretable.Count >= 10) {
                 var average = this.sum / 10;
-                this.scoreBoard.Score = average * 0.001;
-                console.log("Final: " + this.scoreBoard.Score);
+                objects.Game.scoretable.Average = average * 0.001;
+                console.log("Final: " + this.scoreBoard.Average);
+                console.log("Average: " + objects.Game.scoretable.Average + " Sum: " + this.sum +
+                    " Count: " + objects.Game.scoretable.Count);
                 objects.Game.currentScene = config.Scene.OVER;
             }
         }
@@ -49,7 +55,8 @@ module scenes {
         public Main():void {
             this.Timer();
             this.addChild(this.background);
-            this.addChild(this.playLabel);
+            this.addChild(this.scoreBoard.timeLabel);
+            this.addChild(this.scoreBoard.countLabel);
             this.addChild(this.nextButton);
             this.addChild(this.backButton);
             this.AddButton();
@@ -58,13 +65,8 @@ module scenes {
             this.backButton.on("click", this.backButtonClick);           
         }
 
-        private nextButtonClick():void {
-            objects.Game.currentScene = config.Scene.OVER;
-        }
-
-        private backButtonClick():void {
-            objects.Game.currentScene = config.Scene.START;
-        }
+        private nextButtonClick():void { objects.Game.currentScene = config.Scene.OVER; }
+        private backButtonClick():void { objects.Game.currentScene = config.Scene.START; }
 
         public AddButton() {
             this.player = new objects.Button(this.assetManager, "player", this.Random(0, 500), this.Random(50, 450));
@@ -74,7 +76,8 @@ module scenes {
         }
 
         public playerClick() : void {
-            this.scoreBoard.Count++;
+            objects.Game.scoretable.Count++;
+            this.scoreBoard.countLabel.text = this.scoreBoard.Count + "/10";
             this.removeChild(this.player);
             this.endTime = new Date().getTime();
             //console.log("Start: " + this.startTime + " " + "End: " + this.endTime)
@@ -91,15 +94,14 @@ module scenes {
             let intervalId = setInterval(() => {
                this.timer = this.timer + 1;
                if(this.timer < 10) {
-                    this.scoreBoard.Time = "0:0" + this.timer.toString();
-                    this.playLabel.text = this.scoreBoard.Time;
+                   this.scoreBoard.Time = "0:0" + this.timer;
+                   this.scoreBoard.timeLabel.text = this.scoreBoard.Time;
                 } else if (this.timer >= 10 && this.timer <= 59) {
-                    this.scoreBoard.Time = "0:" + this.timer.toString();
-                    this.playLabel.text = this.scoreBoard.Time;  
+                    this.scoreBoard.Time = "0:" + this.timer;
+                    this.scoreBoard.timeLabel.text = this.scoreBoard.Time;
                 } else if (this.timer >= 60) {
-                    this.scoreBoard.Time = "1:00";  
-                    this.playLabel.text = this.scoreBoard.Time;
-                    this.scoreBoard.Score = (this.sum / this.scoreBoard.Count) * 0.001;
+                    this.scoreBoard.timeLabel.text = "1:00";  
+                    objects.Game.scoretable.Average = (this.sum / objects.Game.scoretable.Count) * 0.001;
                     objects.Game.currentScene = config.Scene.OVER;
                 }
             }, 1000)
