@@ -19,6 +19,8 @@ module scenes {
         private endTime : any;
         private timer : number = 0;
 
+        private interval : any;
+
         // Constructor
         constructor(assetManager:createjs.LoadQueue) {
             super(assetManager);
@@ -44,10 +46,11 @@ module scenes {
            //console.log("Sum: " + this.sum);
             if(objects.Game.scoretable.Count >= 10) {
                 var average = this.sum / 10;
+                clearInterval(this.interval);
+                //this.scoreBoard.Time = "";
+                this.timer = 0;
+                //objects.Game.scoretable.Time = "";
                 objects.Game.scoretable.Average = average * 0.001;
-                console.log("Final: " + this.scoreBoard.Average);
-                console.log("Average: " + objects.Game.scoretable.Average + " Sum: " + this.sum +
-                    " Count: " + objects.Game.scoretable.Count);
                 objects.Game.currentScene = config.Scene.OVER;
             }
         }
@@ -80,7 +83,6 @@ module scenes {
             this.scoreBoard.countLabel.text = this.scoreBoard.Count + "/10";
             this.removeChild(this.player);
             this.endTime = new Date().getTime();
-            //console.log("Start: " + this.startTime + " " + "End: " + this.endTime)
             var result = this.endTime - this.startTime;
             this.sum += result;
             this.AddButton();
@@ -91,19 +93,22 @@ module scenes {
         }
 
         private Timer() : void {
-            let intervalId = setInterval(() => {
+            this.interval = setInterval(() => {
                this.timer = this.timer + 1;
-               if(this.timer < 10) {
-                   this.scoreBoard.Time = "0:0" + this.timer;
-                   this.scoreBoard.timeLabel.text = this.scoreBoard.Time;
-                } else if (this.timer >= 10 && this.timer <= 59) {
-                    this.scoreBoard.Time = "0:" + this.timer;
-                    this.scoreBoard.timeLabel.text = this.scoreBoard.Time;
-                } else if (this.timer >= 60) {
-                    this.scoreBoard.timeLabel.text = "1:00";  
-                    objects.Game.scoretable.Average = (this.sum / objects.Game.scoretable.Count) * 0.001;
-                    objects.Game.currentScene = config.Scene.OVER;
-                }
+               if (this.timer % 60 < 10) {
+                this.scoreBoard.Time = Math.floor(this.timer / 60) + ":0" + this.timer % 60; 
+               } else {
+                this.scoreBoard.Time = Math.floor(this.timer / 60) + ":" + this.timer % 60; 
+               } 
+               this.scoreBoard.timeLabel.text = this.scoreBoard.Time;
+               if (this.timer >= 70) {
+                clearInterval(this.interval);
+                this.scoreBoard.Time = "60";
+                this.timer = 0;
+                objects.Game.scoretable.Time = "60";
+                objects.Game.scoretable.Average = (this.sum / objects.Game.scoretable.Count) * 0.001;
+                objects.Game.currentScene = config.Scene.OVER;
+            }
             }, 1000)
         }
     }

@@ -52,6 +52,9 @@ module scenes {
         }
 
         private backButtonClick():void {
+            objects.Game.scoretable.Average = 0;
+            objects.Game.scoretable.Count = 0;
+            objects.Game.scoretable.Time = "";
             objects.Game.currentScene = config.Scene.START;
         }
     }

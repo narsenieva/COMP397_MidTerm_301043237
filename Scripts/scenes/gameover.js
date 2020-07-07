@@ -44,6 +44,9 @@ var scenes;
             this.backButton.on("click", this.backButtonClick);
         };
         GameOverScene.prototype.backButtonClick = function () {
+            objects.Game.scoretable.Average = 0;
+            objects.Game.scoretable.Count = 0;
+            objects.Game.scoretable.Time = "";
             objects.Game.currentScene = config.Scene.START;
         };
         return GameOverScene;

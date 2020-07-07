@@ -37,10 +37,11 @@ var scenes;
             //console.log("Sum: " + this.sum);
             if (objects.Game.scoretable.Count >= 10) {
                 var average = this.sum / 10;
+                clearInterval(this.interval);
+                //this.scoreBoard.Time = "";
+                this.timer = 0;
+                //objects.Game.scoretable.Time = "";
                 objects.Game.scoretable.Average = average * 0.001;
-                console.log("Final: " + this.scoreBoard.Average);
-                console.log("Average: " + objects.Game.scoretable.Average + " Sum: " + this.sum +
-                    " Count: " + objects.Game.scoretable.Count);
                 objects.Game.currentScene = config.Scene.OVER;
             }
         };
@@ -69,7 +70,6 @@ var scenes;
             this.scoreBoard.countLabel.text = this.scoreBoard.Count + "/10";
             this.removeChild(this.player);
             this.endTime = new Date().getTime();
-            //console.log("Start: " + this.startTime + " " + "End: " + this.endTime)
             var result = this.endTime - this.startTime;
             this.sum += result;
             this.AddButton();
@@ -79,18 +79,20 @@ var scenes;
         };
         PlayScene.prototype.Timer = function () {
             var _this = this;
-            var intervalId = setInterval(function () {
+            this.interval = setInterval(function () {
                 _this.timer = _this.timer + 1;
-                if (_this.timer < 10) {
-                    _this.scoreBoard.Time = "0:0" + _this.timer;
-                    _this.scoreBoard.timeLabel.text = _this.scoreBoard.Time;
+                if (_this.timer % 60 < 10) {
+                    _this.scoreBoard.Time = Math.floor(_this.timer / 60) + ":0" + _this.timer % 60;
                 }
-                else if (_this.timer >= 10 && _this.timer <= 59) {
-                    _this.scoreBoard.Time = "0:" + _this.timer;
-                    _this.scoreBoard.timeLabel.text = _this.scoreBoard.Time;
+                else {
+                    _this.scoreBoard.Time = Math.floor(_this.timer / 60) + ":" + _this.timer % 60;
                 }
-                else if (_this.timer >= 60) {
-                    _this.scoreBoard.timeLabel.text = "1:00";
+                _this.scoreBoard.timeLabel.text = _this.scoreBoard.Time;
+                if (_this.timer >= 70) {
+                    clearInterval(_this.interval);
+                    _this.scoreBoard.Time = "60";
+                    _this.timer = 0;
+                    objects.Game.scoretable.Time = "60";
                     objects.Game.scoretable.Average = (_this.sum / objects.Game.scoretable.Count) * 0.001;
                     objects.Game.currentScene = config.Scene.OVER;
                 }

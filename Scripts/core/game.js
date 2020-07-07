@@ -13,7 +13,7 @@
         { id: "player", src: "./Assets/player.png" }
     ];
     function Init() {
-        console.log("Initializing Start");
+        // console.log("Initializing Start");
         assetManager = new createjs.LoadQueue();
         assetManager.installPlugin(createjs.Sound);
         assetManager.loadManifest(assetManifest);
@@ -21,7 +21,7 @@
         Start();
     }
     function Start() {
-        console.log("Starting Application...");
+        //console.log("Starting Application...");
         // Initialize CreateJS
         stage = new createjs.Stage(canvas);
         stage.enableMouseOver(20);
@@ -33,16 +33,16 @@
         Main();
     }
     function Update() {
-        //console.log("GAME SCORE IS: " + score);
+        //console.log("TIME IS: " + objects.Game.scoretable.Time);
         if (currentState != objects.Game.currentScene) {
-            console.log("Changing scenes to " + objects.Game.currentScene);
+            //console.log("Changing scenes to " + objects.Game.currentScene);
             Main();
         }
         currentScene.Update();
         stage.update();
     }
     function Main() {
-        console.log("Game Start");
+        //console.log("Game Start");
         // Finite State Machine
         switch (objects.Game.currentScene) {
             case config.Scene.START:

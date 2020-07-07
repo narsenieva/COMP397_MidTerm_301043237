@@ -18,9 +18,8 @@ var objects;
         // Variables
         // Constructor
         function Background(assetManager) {
-            var _this = _super.call(this, assetManager.getResult("background")) || this;
-            console.log("Creating the background");
-            return _this;
+            return _super.call(this, assetManager.getResult("background")) || this;
+            //console.log("Creating the background");
         }
         return Background;
     }(createjs.Bitmap));
