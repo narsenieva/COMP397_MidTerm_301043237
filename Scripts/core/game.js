@@ -33,6 +33,7 @@
         Main();
     }
     function Update() {
+        //console.log("GAME SCORE IS: " + score);
         if (currentState != objects.Game.currentScene) {
             console.log("Changing scenes to " + objects.Game.currentScene);
             Main();
