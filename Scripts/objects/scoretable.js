@@ -33,4 +33,4 @@ var objects;
     }());
     objects.ScoreTable = ScoreTable;
 })(objects || (objects = {}));
-//# sourceMappingURL=scoreTable.js.map
+//# sourceMappingURL=scoretable.js.map
