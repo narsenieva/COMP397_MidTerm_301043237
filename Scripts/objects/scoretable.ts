@@ -12,10 +12,10 @@ module objects {
         set Average(newAverage : number) { this.average = newAverage;}
 
         get Time() : string { return this.time; } 
-        set Time(newTime : string) { this.time = newTime; this.timeLabel.text = this.time; }
+        set Time(newTime : string) { this.time = newTime; this.timeLabel.text = "1:00"; }
 
         get Count() : number { return this.count; }
-        set Count(newCount : number) { this.count = newCount; this.countLabel.text = this.count + "/10";}
+        set Count(newCount : number) { this.count = newCount; this.countLabel.text = this.count + "/20";}
 
         constructor() {
             this.Init();

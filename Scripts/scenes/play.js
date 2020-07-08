@@ -19,7 +19,7 @@ var scenes;
         function PlayScene(assetManager) {
             var _this = _super.call(this, assetManager) || this;
             _this.sum = 0;
-            _this.timer = 0;
+            _this.timer = 60;
             _this.Start();
             return _this;
         }
@@ -35,7 +35,7 @@ var scenes;
         PlayScene.prototype.Update = function () {
             // console.log("LEVEL SCORE IS: " + this.scoreBoard.Count);
             //console.log("Sum: " + this.sum);
-            if (objects.Game.scoretable.Count >= 10) {
+            if (objects.Game.scoretable.Count >= 20) {
                 var average = this.sum / 10;
                 clearInterval(this.interval);
                 //this.scoreBoard.Time = "";
@@ -67,7 +67,7 @@ var scenes;
         };
         PlayScene.prototype.playerClick = function () {
             objects.Game.scoretable.Count++;
-            this.scoreBoard.countLabel.text = this.scoreBoard.Count + "/10";
+            this.scoreBoard.countLabel.text = this.scoreBoard.Count + "/20";
             this.removeChild(this.player);
             this.endTime = new Date().getTime();
             var result = this.endTime - this.startTime;
@@ -80,7 +80,7 @@ var scenes;
         PlayScene.prototype.Timer = function () {
             var _this = this;
             this.interval = setInterval(function () {
-                _this.timer = _this.timer + 1;
+                _this.timer = _this.timer - 1;
                 if (_this.timer % 60 < 10) {
                     _this.scoreBoard.Time = Math.floor(_this.timer / 60) + ":0" + _this.timer % 60;
                 }
@@ -88,7 +88,7 @@ var scenes;
                     _this.scoreBoard.Time = Math.floor(_this.timer / 60) + ":" + _this.timer % 60;
                 }
                 _this.scoreBoard.timeLabel.text = _this.scoreBoard.Time;
-                if (_this.timer >= 60) {
+                if (_this.timer == 0) {
                     clearInterval(_this.interval);
                     _this.scoreBoard.Time = "60";
                     _this.timer = 0;

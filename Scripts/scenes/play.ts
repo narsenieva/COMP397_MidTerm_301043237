@@ -17,7 +17,7 @@ module scenes {
 
         private startTime : any;
         private endTime : any;
-        private timer : number = 0;
+        private timer : number = 60;
 
         private interval : any;
 
@@ -44,7 +44,7 @@ module scenes {
            
            // console.log("LEVEL SCORE IS: " + this.scoreBoard.Count);
            //console.log("Sum: " + this.sum);
-            if(objects.Game.scoretable.Count >= 10) {
+            if(objects.Game.scoretable.Count >= 20) {
                 var average = this.sum / 10;
                 clearInterval(this.interval);
                 //this.scoreBoard.Time = "";
@@ -80,7 +80,7 @@ module scenes {
 
         public playerClick() : void {
             objects.Game.scoretable.Count++;
-            this.scoreBoard.countLabel.text = this.scoreBoard.Count + "/10";
+            this.scoreBoard.countLabel.text = this.scoreBoard.Count + "/20";
             this.removeChild(this.player);
             this.endTime = new Date().getTime();
             var result = this.endTime - this.startTime;
@@ -94,14 +94,14 @@ module scenes {
 
         private Timer() : void {
             this.interval = setInterval(() => {
-               this.timer = this.timer + 1;
+               this.timer = this.timer - 1;
                if (this.timer % 60 < 10) {
                 this.scoreBoard.Time = Math.floor(this.timer / 60) + ":0" + this.timer % 60; 
                } else {
                 this.scoreBoard.Time = Math.floor(this.timer / 60) + ":" + this.timer % 60; 
                } 
                this.scoreBoard.timeLabel.text = this.scoreBoard.Time;
-               if (this.timer >= 60) {
+               if (this.timer == 0) {
                 clearInterval(this.interval);
                 this.scoreBoard.Time = "60";
                 this.timer = 0;

@@ -25,19 +25,23 @@ var scenes;
         StartScene.prototype.Start = function () {
             // Initialize our objects for this scene
             this.background = new objects.Background(this.assetManager);
-            this.welcomeLabel = new objects.Label("Main Menu", "60px", "Consolas", "#000000", 300, 100, true);
+            this.welcomeLabelDouble = new objects.Label("Main Menu", "60px", "Notable", "#6f0000", 300, 103, true);
+            this.welcomeLabel = new objects.Label("Main Menu", "60px", "Notable", "#9a0b0b", 300, 100, true);
             // NOTE: PreloadJS manifest id
-            this.startButton = new objects.Button(this.assetManager, "nextButton", 250, 300);
+            this.startButton = new objects.Button(this.assetManager, "startButton", 180, 300);
+            this.startButton.scaleX -= 0.5;
+            this.startButton.scaleY -= 0.5;
             this.creditsLabel = new objects.Label("By Nataliia Arsenieva - 301043237 - COMP397_S2020 - Midterm", "15px", "Consolas", "#FFFFFF", 300, 550, true);
             this.Main();
         };
         StartScene.prototype.Update = function () { };
         StartScene.prototype.Main = function () {
-            // Add items to the scene
+            // Add items to the scen
             this.addChild(this.background);
+            this.addChild(this.welcomeLabelDouble);
             this.addChild(this.welcomeLabel);
             this.addChild(this.startButton);
-            this.addChild(this.creditsLabel);
+            //this.addChild(this.creditsLabel);
             this.startButton.on("click", this.startButtonClick);
         };
         StartScene.prototype.startButtonClick = function () {

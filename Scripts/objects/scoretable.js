@@ -12,13 +12,13 @@ var objects;
         });
         Object.defineProperty(ScoreTable.prototype, "Time", {
             get: function () { return this.time; },
-            set: function (newTime) { this.time = newTime; this.timeLabel.text = this.time; },
+            set: function (newTime) { this.time = newTime; this.timeLabel.text = "1:00"; },
             enumerable: false,
             configurable: true
         });
         Object.defineProperty(ScoreTable.prototype, "Count", {
             get: function () { return this.count; },
-            set: function (newCount) { this.count = newCount; this.countLabel.text = this.count + "/10"; },
+            set: function (newCount) { this.count = newCount; this.countLabel.text = this.count + "/20"; },
             enumerable: false,
             configurable: true
         });

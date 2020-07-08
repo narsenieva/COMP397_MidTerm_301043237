@@ -26,9 +26,10 @@ var scenes;
             // Initialize our variables
             this.background = new objects.Background(this.assetManager);
             //this.scoreTable = new objects.ScoreTable();
+            var time = 60 - parseInt(objects.Game.scoretable.Time.slice(-2));
             this.gameOverLabel = new objects.Label("You did it! ", "40px", "Consolas", "#000000", 300, 100, true);
-            this.resultLabel = new objects.Label(objects.Game.scoretable.Count + "/10 for "
-                + objects.Game.scoretable.Time + " seconds!", "20px", "Consolas", "#000000", 300, 200, true);
+            this.resultLabel = new objects.Label(objects.Game.scoretable.Count + "/20 for "
+                + time + " seconds!", "20px", "Consolas", "#000000", 300, 200, true);
             this.averageLabel = new objects.Label("Your average responce rate is: "
                 + objects.Game.scoretable.Average.toFixed(2) + " seconds!", "20px", "Consolas", "#000000", 300, 300, true);
             this.backButton = new objects.Button(this.assetManager, "backButton", 250, 500);
@@ -47,7 +48,8 @@ var scenes;
             objects.Game.scoretable.Average = 0;
             objects.Game.scoretable.Count = 0;
             objects.Game.scoretable.Time = "";
-            objects.Game.currentScene = config.Scene.START;
+            location.reload();
+            //objects.Game.currentScene = config.Scene.START;
         };
         return GameOverScene;
     }(objects.Scene));
