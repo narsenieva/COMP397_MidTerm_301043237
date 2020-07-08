@@ -36,7 +36,9 @@ module scenes {
                 + objects.Game.scoretable.Average.toFixed(2) + " seconds!",
                 "20px", "Consolas", "#000000", 300, 300, true
             );
-                this.backButton = new objects.Button(this.assetManager, "backButton", 250, 500);
+                this.backButton = new objects.Button(this.assetManager, "backButton", 250, 400);
+                this.backButton.scaleX -= 0.65;
+                this.backButton.scaleY -= 0.65;
             this.Main();
         }
 

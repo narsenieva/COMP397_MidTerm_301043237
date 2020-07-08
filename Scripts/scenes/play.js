@@ -29,8 +29,12 @@ var scenes;
             this.scoreBoard = new objects.ScoreTable();
             objects.Game.scoretable = this.scoreBoard;
             this.background = new objects.Background(this.assetManager, "background");
-            this.nextButton = new objects.Button(this.assetManager, "nextButton", 500, 500);
-            this.backButton = new objects.Button(this.assetManager, "backButton", 0, 500);
+            this.nextButton = new objects.Button(this.assetManager, "nextButton", 500, 30);
+            this.backButton = new objects.Button(this.assetManager, "backButton", 30, 30);
+            this.backButton.scaleX -= 0.8;
+            this.backButton.scaleY -= 0.8;
+            this.nextButton.scaleX -= 0.8;
+            this.nextButton.scaleY -= 0.8;
             this.Main();
         };
         PlayScene.prototype.Update = function () {
