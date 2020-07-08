@@ -29,6 +29,7 @@ module scenes {
         }
 
         public Start():void {
+
             // Inintialize our variables
             this.scoreBoard = new objects.ScoreTable();
             objects.Game.scoretable = this.scoreBoard;

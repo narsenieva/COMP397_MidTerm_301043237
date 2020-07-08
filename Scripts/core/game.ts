@@ -14,7 +14,8 @@
         {id:"nextButton", src:"./Assets/nextButton.png"},
         {id:"backButton", src:"./Assets/backButton.png"},
         {id:"background", src:"./Assets/background.png"},
-        {id:"player", src:"./Assets/player.png"}
+        {id:"player", src:"./Assets/player.png"},
+        {id:"music", src:"./Audio/bg_music.mp3"}
     ];
 
     function Init() {

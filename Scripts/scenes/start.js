@@ -23,6 +23,7 @@ var scenes;
         }
         // Methods
         StartScene.prototype.Start = function () {
+            _super.prototype.Start.call(this);
             // Initialize our objects for this scene
             this.background = new objects.Background(this.assetManager);
             this.welcomeLabelDouble = new objects.Label("Main Menu", "60px", "Notable", "#6f0000", 300, 103, true);

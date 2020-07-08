@@ -18,11 +18,16 @@ var objects;
         // Constructor
         function Scene(assetManager) {
             var _this = _super.call(this) || this;
+            _this.musicPlaying = false;
             _this.assetManager = assetManager;
             return _this;
         }
         // Methods
-        Scene.prototype.Start = function () { };
+        Scene.prototype.Start = function () {
+            this.backgroundMusic = createjs.Sound.play("music");
+            this.backgroundMusic.loop = -1; // Looping forever
+            this.backgroundMusic.volume = 0.005;
+        };
         Scene.prototype.Update = function () { };
         Scene.prototype.Main = function () { };
         return Scene;

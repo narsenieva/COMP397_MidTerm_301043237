@@ -15,6 +15,7 @@ module scenes {
         }
         // Methods
         public Start():void {
+            super.Start();
             // Initialize our objects for this scene
             this.background = new objects.Background(this.assetManager);
 
