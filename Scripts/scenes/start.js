@@ -25,7 +25,7 @@ var scenes;
         StartScene.prototype.Start = function () {
             _super.prototype.Start.call(this);
             // Initialize our objects for this scene
-            this.background = new objects.Background(this.assetManager);
+            this.background = new objects.Background(this.assetManager, "background");
             this.welcomeLabelDouble = new objects.Label("Main Menu", "60px", "Notable", "#6f0000", 300, 103, true);
             this.welcomeLabel = new objects.Label("Main Menu", "60px", "Notable", "#9a0b0b", 300, 100, true);
             // NOTE: PreloadJS manifest id

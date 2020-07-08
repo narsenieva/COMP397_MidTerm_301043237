@@ -16,7 +16,7 @@ module objects {
         public Start():void {
             this.backgroundMusic = createjs.Sound.play("music"); 
             this.backgroundMusic.loop = -1; // Looping forever
-            this.backgroundMusic.volume = 0.005;
+            this.backgroundMusic.volume = 0.002;
         }
         public Update():void {}
         public Main():void {}

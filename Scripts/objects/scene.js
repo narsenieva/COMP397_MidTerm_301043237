@@ -26,7 +26,7 @@ var objects;
         Scene.prototype.Start = function () {
             this.backgroundMusic = createjs.Sound.play("music");
             this.backgroundMusic.loop = -1; // Looping forever
-            this.backgroundMusic.volume = 0.005;
+            this.backgroundMusic.volume = 0.002;
         };
         Scene.prototype.Update = function () { };
         Scene.prototype.Main = function () { };

@@ -24,7 +24,7 @@ var scenes;
         // Method
         GameOverScene.prototype.Start = function () {
             // Initialize our variables
-            this.background = new objects.Background(this.assetManager);
+            this.background = new objects.Background(this.assetManager, "background");
             //this.scoreTable = new objects.ScoreTable();
             var time = 60 - parseInt(objects.Game.scoretable.Time.slice(-2));
             this.gameOverLabel = new objects.Label("You did it! ", "40px", "Consolas", "#000000", 300, 100, true);

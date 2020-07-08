@@ -19,6 +19,7 @@ var scenes;
         function PlayScene(assetManager) {
             var _this = _super.call(this, assetManager) || this;
             _this.sum = 0;
+            // -- TIMER --
             _this.timer = 60;
             _this.Start();
             return _this;
@@ -27,21 +28,17 @@ var scenes;
             // Inintialize our variables
             this.scoreBoard = new objects.ScoreTable();
             objects.Game.scoretable = this.scoreBoard;
-            this.background = new objects.Background(this.assetManager);
+            this.background = new objects.Background(this.assetManager, "background");
             this.nextButton = new objects.Button(this.assetManager, "nextButton", 500, 500);
             this.backButton = new objects.Button(this.assetManager, "backButton", 0, 500);
             this.Main();
         };
         PlayScene.prototype.Update = function () {
-            // console.log("LEVEL SCORE IS: " + this.scoreBoard.Count);
-            //console.log("Sum: " + this.sum);
+            var average = this.sum / objects.Game.scoretable.Count;
+            objects.Game.scoretable.Average = average * 0.001;
             if (objects.Game.scoretable.Count >= 20) {
-                var average = this.sum / 10;
                 clearInterval(this.interval);
-                //this.scoreBoard.Time = "";
                 this.timer = 0;
-                //objects.Game.scoretable.Time = "";
-                objects.Game.scoretable.Average = average * 0.001;
                 objects.Game.currentScene = config.Scene.OVER;
             }
         };
@@ -52,49 +49,60 @@ var scenes;
             this.addChild(this.scoreBoard.countLabel);
             this.addChild(this.nextButton);
             this.addChild(this.backButton);
-            this.AddButton();
+            this.addFactory();
             // Register for click events
             this.nextButton.on("click", this.nextButtonClick);
             this.backButton.on("click", this.backButtonClick);
         };
-        PlayScene.prototype.nextButtonClick = function () { objects.Game.currentScene = config.Scene.OVER; };
-        PlayScene.prototype.backButtonClick = function () { objects.Game.currentScene = config.Scene.START; };
-        PlayScene.prototype.AddButton = function () {
+        PlayScene.prototype.nextButtonClick = function () {
+            clearInterval(this.interval);
+            this.timer = 0;
+            objects.Game.currentScene = config.Scene.OVER;
+        };
+        PlayScene.prototype.backButtonClick = function () {
+            location.reload();
+            objects.Game.currentScene = config.Scene.START;
+        };
+        PlayScene.prototype.addFactory = function () {
             this.player = new objects.Button(this.assetManager, "player", this.Random(0, 500), this.Random(50, 450));
             this.addChild(this.player);
             this.startTime = new Date().getTime();
-            this.player.on("click", this.playerClick.bind(this));
+            this.player.on("click", this.onFactoryClick.bind(this));
         };
-        PlayScene.prototype.playerClick = function () {
+        PlayScene.prototype.onFactoryClick = function () {
             objects.Game.scoretable.Count++;
+            this.popSound = createjs.Sound.play("pop");
+            this.popSound.volume = 0.01;
             this.scoreBoard.countLabel.text = this.scoreBoard.Count + "/20";
             this.removeChild(this.player);
             this.endTime = new Date().getTime();
             var result = this.endTime - this.startTime;
             this.sum += result;
-            this.AddButton();
+            this.addFactory();
         };
+        // Generate and return random number
         PlayScene.prototype.Random = function (min, max) {
             return Math.random() * (max - min) + min;
         };
         PlayScene.prototype.Timer = function () {
             var _this = this;
             this.interval = setInterval(function () {
-                _this.timer = _this.timer - 1;
-                if (_this.timer % 60 < 10) {
+                _this.timer = _this.timer - 1; // Decrease timer by 1
+                // Timer formatting
+                if (_this.timer % 60 < 10)
                     _this.scoreBoard.Time = Math.floor(_this.timer / 60) + ":0" + _this.timer % 60;
-                }
-                else {
+                else
                     _this.scoreBoard.Time = Math.floor(_this.timer / 60) + ":" + _this.timer % 60;
-                }
-                _this.scoreBoard.timeLabel.text = _this.scoreBoard.Time;
-                if (_this.timer == 0) {
+                _this.scoreBoard.timeLabel.text = _this.scoreBoard.Time; // Assign value to the label
+                if (_this.timer == 0) { // End game
                     clearInterval(_this.interval);
-                    _this.scoreBoard.Time = "60";
                     _this.timer = 0;
+                    // Assign 60 seconds to Time variable
+                    _this.scoreBoard.Time = "60";
                     objects.Game.scoretable.Time = "60";
+                    // Calculate average
                     objects.Game.scoretable.Average = (_this.sum / objects.Game.scoretable.Count) * 0.001;
-                    objects.Game.currentScene = config.Scene.OVER;
+                    objects.Game.currentScene = config.Scene.OVER; // Go to GameOver scene
                 }
             }, 1000);
         };

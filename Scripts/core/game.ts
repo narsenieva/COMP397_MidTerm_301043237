@@ -15,7 +15,9 @@
         {id:"backButton", src:"./Assets/backButton.png"},
         {id:"background", src:"./Assets/background.png"},
         {id:"player", src:"./Assets/player.png"},
-        {id:"music", src:"./Audio/bg_music.mp3"}
+        {id:"music", src:"./Audio/bg_music.mp3"},
+        {id:"pop", src:"./Audio/pop.mp3"},
+        {id:"screen", src:"./Assets/screen.gif"}
     ];
 
     function Init() {

@@ -20,7 +20,7 @@ module scenes {
         // Method
         public Start():void {
             // Initialize our variables
-            this.background = new objects.Background(this.assetManager);
+            this.background = new objects.Background(this.assetManager, "background");
             //this.scoreTable = new objects.ScoreTable();
             var time = 60 - parseInt(objects.Game.scoretable.Time.slice(-2));
             this.gameOverLabel = new objects.Label(
