@@ -29,8 +29,22 @@ var scenes;
             this.scoreBoard = new objects.ScoreTable();
             objects.Game.scoretable = this.scoreBoard;
             this.background = new objects.Background(this.assetManager, "background");
-            this.nextButton = new objects.Button(this.assetManager, "nextButton", 500, 30);
-            this.backButton = new objects.Button(this.assetManager, "backButton", 30, 30);
+            this.nextButton = new objects.Button(this.assetManager, "nextButton", 500, 520);
+            this.backButton = new objects.Button(this.assetManager, "backButton", 30, 520);
+            this.timerImage = new objects.Background(this.assetManager, "timer");
+            // Labels and Images formatting
+            this.timerImage.x = 243;
+            this.timerImage.y = 30;
+            this.scoreBoard.countLabel.x = 277;
+            this.scoreBoard.countLabel.y = 100;
+            this.scoreBoard.timeLabel.x = 280;
+            this.scoreBoard.timeLabel.y = 53;
+            this.scoreBoard.countLabel.color = "#ae1111";
+            this.scoreBoard.timeLabel.color = "#0cff00";
+            this.scoreBoard.countLabel.scaleX += 0.25;
+            this.scoreBoard.countLabel.scaleY += 0.25;
+            this.scoreBoard.timeLabel.scaleX += 0.25;
+            this.scoreBoard.timeLabel.scaleY += 0.25;
             this.backButton.scaleX -= 0.8;
             this.backButton.scaleY -= 0.8;
             this.nextButton.scaleX -= 0.8;
@@ -40,6 +54,8 @@ var scenes;
         PlayScene.prototype.Update = function () {
             var average = this.sum / objects.Game.scoretable.Count;
             objects.Game.scoretable.Average = average * 0.001;
+            if (objects.Game.scoretable.Count >= 10)
+                this.scoreBoard.countLabel.x = 272;
             if (objects.Game.scoretable.Count >= 20) {
                 clearInterval(this.interval);
                 this.timer = 0;
@@ -49,11 +65,12 @@ var scenes;
         PlayScene.prototype.Main = function () {
             this.Timer();
             this.addChild(this.background);
-            this.addChild(this.scoreBoard.timeLabel);
-            this.addChild(this.scoreBoard.countLabel);
             this.addChild(this.nextButton);
             this.addChild(this.backButton);
             this.addFactory();
+            this.addChild(this.timerImage);
+            this.addChild(this.scoreBoard.timeLabel);
+            this.addChild(this.scoreBoard.countLabel);
             // Register for click events
             this.nextButton.on("click", this.nextButtonClick);
             this.backButton.on("click", this.backButtonClick);
@@ -81,6 +98,7 @@ var scenes;
             this.removeChild(this.player);
             this.endTime = new Date().getTime();
             var result = this.endTime - this.startTime;
+            objects.Game.scoretable.ResultArrray.push(result);
             this.sum += result;
             this.addFactory();
         };

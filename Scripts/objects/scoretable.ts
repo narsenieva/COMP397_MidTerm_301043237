@@ -7,6 +7,7 @@ module objects {
         private count : number;
         private time : string;
         private average : number;
+        private resultArray: number[];
 
         get Average():number { return this.average; }
         set Average(newAverage : number) { this.average = newAverage;}
@@ -17,6 +18,9 @@ module objects {
         get Count() : number { return this.count; }
         set Count(newCount : number) { this.count = newCount; this.countLabel.text = this.count + "/20";}
 
+        get ResultArrray():number[] { return this.resultArray; }
+        set  ResultArrray(newArray : number[]) {this.resultArray = newArray;}
+
         constructor() {
             this.Init();
         }
@@ -24,10 +28,11 @@ module objects {
         private Init() : void {
 
             this.timeLabel = new objects.Label("", "20px", "Consolas", "#000000", 300, 60, true);
-            this.countLabel = new objects.Label( "", "20px", "Consolas", "#000000", 400, 60);
+            this.countLabel = new objects.Label( "", "20px", "Consolas", "#000000", 400, 60, true);
             this.Count = 0;
             this.Average = 0;
             this.Time = "";
+            this.ResultArrray = new Array<number>(20);
         }
     }
 }

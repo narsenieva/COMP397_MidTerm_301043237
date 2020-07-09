@@ -22,12 +22,19 @@ var objects;
             enumerable: false,
             configurable: true
         });
+        Object.defineProperty(ScoreTable.prototype, "ResultArrray", {
+            get: function () { return this.resultArray; },
+            set: function (newArray) { this.resultArray = newArray; },
+            enumerable: false,
+            configurable: true
+        });
         ScoreTable.prototype.Init = function () {
             this.timeLabel = new objects.Label("", "20px", "Consolas", "#000000", 300, 60, true);
-            this.countLabel = new objects.Label("", "20px", "Consolas", "#000000", 400, 60);
+            this.countLabel = new objects.Label("", "20px", "Consolas", "#000000", 400, 60, true);
             this.Count = 0;
             this.Average = 0;
             this.Time = "";
+            this.ResultArrray = new Array(20);
         };
         return ScoreTable;
     }());

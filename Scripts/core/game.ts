@@ -17,7 +17,8 @@
         {id:"player", src:"./Assets/player.png"},
         {id:"music", src:"./Audio/bg_music.mp3"},
         {id:"pop", src:"./Audio/pop.mp3"},
-        {id:"screen", src:"./Assets/screen.gif"}
+        {id:"timer", src:"./Assets/timer.png"},
+        {id:"instructions", src:"./Assets/instructions.png"}
     ];
 
     function Init() {
