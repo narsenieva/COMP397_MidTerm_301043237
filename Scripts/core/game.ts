@@ -18,12 +18,11 @@
         {id:"music", src:"./Audio/bg_music.mp3"},
         {id:"pop", src:"./Audio/pop.mp3"},
         {id:"timer", src:"./Assets/timer.png"},
-        {id:"instructions", src:"./Assets/instructions.png"}
+        {id:"instructions", src:"./Assets/instructions.png"},
+        {id:"finalTable", src:"./Assets/finalTable.png"}
     ];
 
     function Init() {
-       // console.log("Initializing Start");
-
         assetManager = new createjs.LoadQueue();
         assetManager.installPlugin(createjs.Sound);
         assetManager.loadManifest(assetManifest);
@@ -33,15 +32,15 @@
     }
 
     function Start() {
-        //console.log("Starting Application...");
-
         // Initialize CreateJS
         stage = new createjs.Stage(canvas);
         stage.enableMouseOver(20);
 
+        // Initialize ticker
         createjs.Ticker.framerate = 60;
         createjs.Ticker.on("tick", Update);
 
+        // Set the first scene
         objects.Game.stage = stage;
         objects.Game.currentScene = config.Scene.START;
         currentState = config.Scene.START;
@@ -49,10 +48,7 @@
         Main();
     }
     function Update() {
-        //console.log("TIME IS: " + objects.Game.scoretable.Time);
-
         if(currentState != objects.Game.currentScene) {
-            //console.log("Changing scenes to " + objects.Game.currentScene);
             Main();
         }
         currentScene.Update();
@@ -61,7 +57,6 @@
 
 
     function Main() {
-        //console.log("Game Start");
         // Finite State Machine
         switch(objects.Game.currentScene)
         {

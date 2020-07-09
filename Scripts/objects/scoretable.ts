@@ -1,14 +1,18 @@
 module objects {
     export class ScoreTable {
+        // Global variables
+        // Labels
         public countLabel : objects.Label;
         public timeLabel : objects.Label;
         public averageLabel : objects.Label;
 
+        // Values
         private count : number;
         private time : string;
         private average : number;
         private resultArray: number[];
 
+        // Getters and setters
         get Average():number { return this.average; }
         set Average(newAverage : number) { this.average = newAverage;}
 
@@ -26,7 +30,7 @@ module objects {
         }
 
         private Init() : void {
-
+            // Initializing the default labels and values
             this.timeLabel = new objects.Label("", "20px", "Consolas", "#000000", 300, 60, true);
             this.countLabel = new objects.Label( "", "20px", "Consolas", "#000000", 400, 60, true);
             this.Count = 0;

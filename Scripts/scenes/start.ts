@@ -4,7 +4,7 @@ module scenes {
         private background: objects.Background;
         private startButton: objects.Button;
         private instructions: objects.Background;
-        //private creditsLabel : objects.Label;
+        private creditsLabel : objects.Label;
 
         // Constructor
         constructor(assetManager:createjs.LoadQueue) {
@@ -22,9 +22,7 @@ module scenes {
             this.startButton = new objects.Button(this.assetManager, "startButton", 180, 450);
             this.startButton.scaleX -= 0.5;
             this.startButton.scaleY -= 0.5;
-
-            //this.creditsLabel = new objects.Label("By Nataliia Arsenieva - 301043237 - COMP397_S2020 - Midterm",
-            //"15px", "Consolas", "#FFFFFF", 300, 550, true);
+            this.creditsLabel = new objects.Label("By Nataliia Arsenieva - 301043237 - COMP397_S2020 - Midterm","15px", "Consolas", "#FFFFFF", 300, 560, true);
             this.Main();
         }
 
@@ -35,7 +33,7 @@ module scenes {
             this.addChild(this.background);
             this.addChild(this.instructions);
             this.addChild(this.startButton);
-            //this.addChild(this.creditsLabel);
+            this.addChild(this.creditsLabel);
             this.startButton.on("click", this.startButtonClick);
         }
 

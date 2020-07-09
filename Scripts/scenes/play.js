@@ -25,7 +25,7 @@ var scenes;
             return _this;
         }
         PlayScene.prototype.Start = function () {
-            // Inintialize our variables
+            // Inintialize variables
             this.scoreBoard = new objects.ScoreTable();
             objects.Game.scoretable = this.scoreBoard;
             this.background = new objects.Background(this.assetManager, "background");
@@ -52,10 +52,13 @@ var scenes;
             this.Main();
         };
         PlayScene.prototype.Update = function () {
+            // Calculating average
             var average = this.sum / objects.Game.scoretable.Count;
             objects.Game.scoretable.Average = average * 0.001;
+            // Modifying the timer display
             if (objects.Game.scoretable.Count >= 10)
                 this.scoreBoard.countLabel.x = 272;
+            // Checking for the winning condition
             if (objects.Game.scoretable.Count >= 20) {
                 clearInterval(this.interval);
                 this.timer = 0;
@@ -63,11 +66,11 @@ var scenes;
             }
         };
         PlayScene.prototype.Main = function () {
-            this.Timer();
+            this.Timer(); // Start the timer
             this.addChild(this.background);
             this.addChild(this.nextButton);
             this.addChild(this.backButton);
-            this.addFactory();
+            this.addFactory(); // Adding a factory button
             this.addChild(this.timerImage);
             this.addChild(this.scoreBoard.timeLabel);
             this.addChild(this.scoreBoard.countLabel);
@@ -84,23 +87,25 @@ var scenes;
             location.reload();
             objects.Game.currentScene = config.Scene.START;
         };
+        // Adds factory to the stage
         PlayScene.prototype.addFactory = function () {
-            this.player = new objects.Button(this.assetManager, "player", this.Random(0, 500), this.Random(50, 450));
+            this.player = new objects.Button(this.assetManager, "player", this.Random(0, 500), this.Random(60, 450));
             this.addChild(this.player);
-            this.startTime = new Date().getTime();
+            this.startTime = new Date().getTime(); // Setting the start time
             this.player.on("click", this.onFactoryClick.bind(this));
         };
+        // Click Factory event
         PlayScene.prototype.onFactoryClick = function () {
-            objects.Game.scoretable.Count++;
-            this.popSound = createjs.Sound.play("pop");
+            objects.Game.scoretable.Count++; // Increase the count of factories
+            this.popSound = createjs.Sound.play("pop"); // Play sound
             this.popSound.volume = 0.01;
-            this.scoreBoard.countLabel.text = this.scoreBoard.Count + "/20";
-            this.removeChild(this.player);
-            this.endTime = new Date().getTime();
-            var result = this.endTime - this.startTime;
-            objects.Game.scoretable.ResultArrray.push(result);
-            this.sum += result;
-            this.addFactory();
+            this.scoreBoard.countLabel.text = this.scoreBoard.Count + "/20"; // Display the updated value
+            this.removeChild(this.player); // Remove child
+            this.endTime = new Date().getTime(); // Setting the end time
+            var result = this.endTime - this.startTime; // Calculating the result
+            objects.Game.scoretable.ResultArrray.push(result); // Pushing it to the array of results
+            this.sum += result; // Incresing the overall sum
+            this.addFactory(); // Run the method again
         };
         // Generate and return random number
         PlayScene.prototype.Random = function (min, max) {

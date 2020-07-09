@@ -5,6 +5,7 @@ var objects;
             this.Init();
         }
         Object.defineProperty(ScoreTable.prototype, "Average", {
+            // Getters and setters
             get: function () { return this.average; },
             set: function (newAverage) { this.average = newAverage; },
             enumerable: false,
@@ -29,6 +30,7 @@ var objects;
             configurable: true
         });
         ScoreTable.prototype.Init = function () {
+            // Initializing the default labels and values
             this.timeLabel = new objects.Label("", "20px", "Consolas", "#000000", 300, 60, true);
             this.countLabel = new objects.Label("", "20px", "Consolas", "#000000", 400, 60, true);
             this.Count = 0;

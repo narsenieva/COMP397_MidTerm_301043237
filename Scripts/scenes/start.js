@@ -15,7 +15,6 @@ var scenes;
 (function (scenes) {
     var StartScene = /** @class */ (function (_super) {
         __extends(StartScene, _super);
-        //private creditsLabel : objects.Label;
         // Constructor
         function StartScene(assetManager) {
             var _this = _super.call(this, assetManager) || this;
@@ -32,8 +31,7 @@ var scenes;
             this.startButton = new objects.Button(this.assetManager, "startButton", 180, 450);
             this.startButton.scaleX -= 0.5;
             this.startButton.scaleY -= 0.5;
-            //this.creditsLabel = new objects.Label("By Nataliia Arsenieva - 301043237 - COMP397_S2020 - Midterm",
-            //"15px", "Consolas", "#FFFFFF", 300, 550, true);
+            this.creditsLabel = new objects.Label("By Nataliia Arsenieva - 301043237 - COMP397_S2020 - Midterm", "15px", "Consolas", "#FFFFFF", 300, 560, true);
             this.Main();
         };
         StartScene.prototype.Update = function () { };
@@ -42,7 +40,7 @@ var scenes;
             this.addChild(this.background);
             this.addChild(this.instructions);
             this.addChild(this.startButton);
-            //this.addChild(this.creditsLabel);
+            this.addChild(this.creditsLabel);
             this.startButton.on("click", this.startButtonClick);
         };
         StartScene.prototype.startButtonClick = function () {
